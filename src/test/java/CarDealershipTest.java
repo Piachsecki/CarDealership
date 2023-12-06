@@ -49,7 +49,7 @@ public class CarDealershipTest {
         customerService = new CustomerService(customerRepo);
         salesmanService = new SalesmanService(salesmanDAO);
         carService = new CarService(carDAO);
-        carPurchaseService = new CarPurchaseService(fileDataPreparationService, customerService, salesmanService, carService);
+        carPurchaseService = new CarPurchaseService(customerService, salesmanService, carService);
     }
 
     @Test
@@ -96,9 +96,14 @@ public class CarDealershipTest {
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     void purchaseSecondTime() {
         log.info("### RUNNING ORDER 4");
+        String email = "kacperowy@gmail.com";
+        String salesmanPesel = "73021314515";
+        String vin = "1N6BD06T45C416702";
+        carPurchaseService.purchase(email, vin, salesmanPesel);
+
 
     }
 }

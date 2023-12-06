@@ -12,7 +12,6 @@ import java.util.Optional;
 public class CarRepository implements CarDAO {
     @Override
     public Optional<CarToBuyEntity> findCarToBuyByVin(String vin) {
-
         try (Session session = HibernateUtil.getSession()) {
                 if (Objects.isNull(session)) {
                     throw new RuntimeException("Session is null");

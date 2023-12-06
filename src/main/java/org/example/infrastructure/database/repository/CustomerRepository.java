@@ -31,18 +31,17 @@ public class CustomerRepository implements CustomerDAO {
                 throw new RuntimeException("Session is null");
             }
             session.beginTransaction();
-            Set<InvoiceEntity> invoices = customer.getInvoices();
-            for (InvoiceEntity invoice : invoices) {
-                invoice.setCustomer(customer);
-                session.persist(invoice);
-            }
-//
-//            customer.getInvoices().forEach(
-//                    invoiceEntity -> {
-//                        invoiceEntity.setCustomer(customer);
-//                        session.persist(invoiceEntity);
-//                    }
-//            );
+
+
+            customer.getInvoices()
+                    .stream()
+                    .filter(invoiceEntity -> Objects.isNull(invoiceEntity.getInvoiceId()))
+                    .forEach(
+                    invoiceEntity -> {
+                        invoiceEntity.setCustomer(customer);
+                        session.persist(invoiceEntity);
+                    }
+            );
             session.getTransaction().commit();
         }
     }

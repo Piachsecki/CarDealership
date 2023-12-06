@@ -29,7 +29,7 @@ public class InvoiceEntity {
     private SalesmanEntity salesman;
 
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "car_to_buy_id", unique = true)
     private CarToBuyEntity carToBuy;
 

@@ -13,7 +13,6 @@ import java.util.UUID;
 
 @AllArgsConstructor
 public class CarPurchaseService {
-    private FileDataPreparationService fileDataPreparationService;
     private CustomerService customerService;
     private SalesmanService salesmanService;
     private CarService carService;
