@@ -30,4 +30,6 @@ public class CustomerService {
     public void issueServiceRequest(CustomerEntity customer) {
         customerDAO.issueServiceRequest(customer);
     }
+
+
 }

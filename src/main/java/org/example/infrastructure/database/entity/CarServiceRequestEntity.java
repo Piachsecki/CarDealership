@@ -39,10 +39,10 @@ public class CarServiceRequestEntity {
     @JoinColumn(name = "car_to_service_id")
     private CarToServiceEntity carToService;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "serviceRequest")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "serviceRequest")
     private Set<ServicePartEntity> serviceParts;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "serviceRequest")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "serviceRequest")
     private Set<ServiceMechanicEntity> serviceMechanics;
 
 }

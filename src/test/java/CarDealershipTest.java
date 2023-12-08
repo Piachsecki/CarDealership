@@ -1,7 +1,5 @@
 import lombok.extern.slf4j.Slf4j;
-import org.example.business.dao.CarDAO;
-import org.example.business.dao.CustomerDAO;
-import org.example.business.dao.SalesmanDAO;
+import org.example.business.dao.*;
 import org.example.business.dao.management.CarDealershipManagementDAO;
 import org.example.business.services.app.*;
 import org.example.business.services.init.CarDealershipManagementService;
@@ -10,10 +8,7 @@ import org.example.infrastructure.configuration.HibernateUtil;
 import org.example.infrastructure.database.entity.AddressEntity;
 import org.example.infrastructure.database.entity.CarToServiceEntity;
 import org.example.infrastructure.database.entity.CustomerEntity;
-import org.example.infrastructure.database.repository.CarDealershipManagementRepository;
-import org.example.infrastructure.database.repository.CarRepository;
-import org.example.infrastructure.database.repository.CustomerRepository;
-import org.example.infrastructure.database.repository.SalesmanRepository;
+import org.example.infrastructure.database.repository.*;
 import org.junit.jupiter.api.*;
 
 @Slf4j
@@ -26,6 +21,11 @@ public class CarDealershipTest {
     private CarService carService;
     private SalesmanService salesmanService;
     private CarServiceRequestService carServiceRequestService;
+    private ProcessRequestService processRequestService;
+    private PartService partService;
+    private MechanicService mechanicService;
+    private ServiceDoneService serviceDoneService;
+    private ServiceMechanicService serviceMechanicService;
 
 
     @AfterAll
@@ -36,20 +36,38 @@ public class CarDealershipTest {
     @BeforeEach
     void beforeEach() {
         FileDataPreparationService fileDataPreparationService = new FileDataPreparationService();
+
         CarDealershipManagementDAO carDealershipManagementRepository = new CarDealershipManagementRepository();
         carDealershipManagementService = new CarDealershipManagementService(
                 carDealershipManagementRepository, fileDataPreparationService);
-
         CustomerDAO customerRepo = new CustomerRepository();
         SalesmanDAO salesmanDAO = new SalesmanRepository();
+        CarServiceRequestDAO carServiceRequestDAO = new CarServiceRequestRepository();
         CarDAO carDAO = new CarRepository();
+        PartDAO partDAO = new PartRepository();
+        MechanicDAO mechanicDAO = new MechanicRepository();
+        ServiceDAO serviceDAO = new ServiceRepository();
+        ServiceMechanicDAO serviceMechanicDAO = new ServiceMechanicRepository();
 
 
         customerService = new CustomerService(customerRepo);
         salesmanService = new SalesmanService(salesmanDAO);
+        mechanicService = new MechanicService(mechanicDAO);
+        serviceMechanicService = new ServiceMechanicService(serviceMechanicDAO);
+        serviceDoneService = new ServiceDoneService(serviceDAO);
+        partService = new PartService(partDAO);
         carService = new CarService(carDAO);
         carPurchaseService = new CarPurchaseService(customerService, salesmanService, carService);
-        carServiceRequestService = new CarServiceRequestService(customerService, carService);
+
+        carServiceRequestService = new CarServiceRequestService(customerService, carService, carServiceRequestDAO);
+
+        processRequestService = new ProcessRequestService(
+                partService,
+                carServiceRequestService,
+                mechanicService,
+                serviceDoneService,
+                serviceMechanicService
+        );
     }
 
     @Test
@@ -140,12 +158,38 @@ public class CarDealershipTest {
     }
 
 
-
     @Test
     @Order(6)
-    void makeServiceRequestForAlreadyExistingCustomer() {
+    void aMechanicIsProcessingTheMadeServiceRequest() {
         log.info("### RUNNING ORDER 6");
+        String carServiceRequestNumber =
+                "b628d48e-8fca-43a2-abdd-d5e98f5d7458";
+        String mechanicPesel = "52070997836";
+        String serviceCode = "55319-866";
+        String comment = "cos sie zepsulo";
+        int hoursSpent = 5;
 
+        processRequestService.processRequestService(
+                carServiceRequestNumber,
+                mechanicPesel,
+                serviceCode,
+                comment,
+                hoursSpent
+        );
+
+
+    }
+
+    @Test
+    @Order(7)
+    void aMechanicIsProcessingServiceRequestAndDefinesPartsThatWereNeeded() {
+        log.info("### RUNNING ORDER 7");
+        String carServiceRequestNumber =
+                "b628d48e-8fca-43a2-abdd-d5e98f5d7458";
+        String serialNumber = "11523-7310";
+        int quantity = 5;
+
+        processRequestService.processServicePart(carServiceRequestNumber, serialNumber, quantity);
 
 
     }
