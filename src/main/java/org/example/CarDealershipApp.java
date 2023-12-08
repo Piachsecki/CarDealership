@@ -1,7 +1,11 @@
 package org.example;
 
-public class Main {
+import java.util.Scanner;
+
+public class CarDealershipApp {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
     }
+
+
+
 }
