@@ -2,6 +2,7 @@ package org.example.business.services.app;
 
 import lombok.AllArgsConstructor;
 import org.example.business.dao.CustomerDAO;
+import org.example.infrastructure.database.entity.CarServiceRequestEntity;
 import org.example.infrastructure.database.entity.CustomerEntity;
 
 import java.util.Optional;
@@ -24,5 +25,9 @@ public class CustomerService {
 
     public CustomerEntity saveCustomer(CustomerEntity customer){
         return customerDAO.saveCustomer(customer);
+    }
+
+    public void issueServiceRequest(CustomerEntity customer) {
+        customerDAO.issueServiceRequest(customer);
     }
 }

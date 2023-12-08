@@ -37,7 +37,7 @@ public class CustomerEntity {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<InvoiceEntity> invoices;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<CarServiceRequestEntity> carServiceRequests;
 
 }

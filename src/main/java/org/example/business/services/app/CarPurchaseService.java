@@ -23,7 +23,6 @@ public class CarPurchaseService {
         CustomerEntity customer = customerService.findCustomer(email);
         InvoiceEntity invoice = buildInvoice(salesman, carToBuy);
 
-
         customer.getInvoices().add(invoice);
         customerService.issueInvoice(customer);
     }

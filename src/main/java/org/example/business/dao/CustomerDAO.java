@@ -1,5 +1,6 @@
 package org.example.business.dao;
 
+import org.example.infrastructure.database.entity.CarServiceRequestEntity;
 import org.example.infrastructure.database.entity.CustomerEntity;
 
 import java.util.Optional;
@@ -10,4 +11,6 @@ public interface CustomerDAO {
     void issueInvoiceForCustomer(CustomerEntity customer);
 
     Optional<CustomerEntity> findCustomerByEmail(String email);
+
+    void issueServiceRequest(CustomerEntity carServiceRequest);
 }

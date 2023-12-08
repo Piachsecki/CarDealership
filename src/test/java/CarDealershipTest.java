@@ -3,14 +3,12 @@ import org.example.business.dao.CarDAO;
 import org.example.business.dao.CustomerDAO;
 import org.example.business.dao.SalesmanDAO;
 import org.example.business.dao.management.CarDealershipManagementDAO;
-import org.example.business.services.app.CarPurchaseService;
-import org.example.business.services.app.CarService;
-import org.example.business.services.app.CustomerService;
-import org.example.business.services.app.SalesmanService;
+import org.example.business.services.app.*;
 import org.example.business.services.init.CarDealershipManagementService;
 import org.example.business.services.init.FileDataPreparationService;
 import org.example.infrastructure.configuration.HibernateUtil;
 import org.example.infrastructure.database.entity.AddressEntity;
+import org.example.infrastructure.database.entity.CarToServiceEntity;
 import org.example.infrastructure.database.entity.CustomerEntity;
 import org.example.infrastructure.database.repository.CarDealershipManagementRepository;
 import org.example.infrastructure.database.repository.CarRepository;
@@ -27,6 +25,7 @@ public class CarDealershipTest {
     private CustomerService customerService;
     private CarService carService;
     private SalesmanService salesmanService;
+    private CarServiceRequestService carServiceRequestService;
 
 
     @AfterAll
@@ -50,6 +49,7 @@ public class CarDealershipTest {
         salesmanService = new SalesmanService(salesmanDAO);
         carService = new CarService(carDAO);
         carPurchaseService = new CarPurchaseService(customerService, salesmanService, carService);
+        carServiceRequestService = new CarServiceRequestService(customerService, carService);
     }
 
     @Test
@@ -106,4 +106,48 @@ public class CarDealershipTest {
 
 
     }
+
+
+    @Test
+    @Order(5)
+    void makeServiceRequestForNewCustomer() {
+        log.info("### RUNNING ORDER 5");
+        AddressEntity address = AddressEntity.builder()
+                .country("Poland")
+                .city("Wroclaw")
+                .postalCode("28-982")
+                .address("Peninska 15")
+                .build();
+        CustomerEntity customer = CustomerEntity.builder()
+                .name("Stefan")
+                .surname("Stefanski")
+                .phone("+45 111 222 333")
+                .email("stefanowy@gmail.com")
+                .address(address)
+                .build();
+        CarToServiceEntity car = CarToServiceEntity.builder()
+                .brand("BMW")
+                .model("M1")
+                .year((short) 2015)
+                .vin("1N4BA41E18C806520")
+                .build();
+
+        customerService.saveCustomer(customer);
+        carService.saveCarToService(car);
+        carServiceRequestService.request(customer.getEmail(), car.getVin(), "Wymiana kół");
+
+
+    }
+
+
+
+    @Test
+    @Order(6)
+    void makeServiceRequestForAlreadyExistingCustomer() {
+        log.info("### RUNNING ORDER 6");
+
+
+
+    }
+
 }
