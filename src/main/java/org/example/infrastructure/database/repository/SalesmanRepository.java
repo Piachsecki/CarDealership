@@ -2,7 +2,6 @@ package org.example.infrastructure.database.repository;
 
 import org.example.business.dao.SalesmanDAO;
 import org.example.infrastructure.configuration.HibernateUtil;
-import org.example.infrastructure.database.entity.CustomerEntity;
 import org.example.infrastructure.database.entity.SalesmanEntity;
 import org.hibernate.Session;
 

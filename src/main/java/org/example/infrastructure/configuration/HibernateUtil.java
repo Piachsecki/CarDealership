@@ -33,7 +33,7 @@ public class HibernateUtil {
     );
 
 
-    private static SessionFactory sessionFactory = loadSessionFactory();
+    private static final SessionFactory sessionFactory = loadSessionFactory();
 
     private static SessionFactory loadSessionFactory() {
         try{

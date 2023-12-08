@@ -2,7 +2,6 @@ package org.example.infrastructure.database.repository;
 
 import org.example.business.dao.PartDAO;
 import org.example.infrastructure.configuration.HibernateUtil;
-import org.example.infrastructure.database.entity.MechanicEntity;
 import org.example.infrastructure.database.entity.PartEntity;
 import org.hibernate.Session;
 

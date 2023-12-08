@@ -1,6 +1,5 @@
 package org.example.business.dao;
 
-import org.example.infrastructure.database.entity.CarServiceRequestEntity;
 import org.example.infrastructure.database.entity.CustomerEntity;
 
 import java.util.Optional;

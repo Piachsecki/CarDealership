@@ -4,7 +4,6 @@ import org.example.business.dao.CarDAO;
 import org.example.infrastructure.configuration.HibernateUtil;
 import org.example.infrastructure.database.entity.CarToBuyEntity;
 import org.example.infrastructure.database.entity.CarToServiceEntity;
-import org.example.infrastructure.database.entity.SalesmanEntity;
 import org.hibernate.Session;
 
 import java.util.Objects;

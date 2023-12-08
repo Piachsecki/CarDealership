@@ -16,6 +16,7 @@ public class PartService {
         if (partSerialNumber.isEmpty()){
             throw new RuntimeException();
         }
+
         return partBySerialNumber.get();
     }
 }

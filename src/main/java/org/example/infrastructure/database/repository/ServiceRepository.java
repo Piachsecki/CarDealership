@@ -2,7 +2,6 @@ package org.example.infrastructure.database.repository;
 
 import org.example.business.dao.ServiceDAO;
 import org.example.infrastructure.configuration.HibernateUtil;
-import org.example.infrastructure.database.entity.CarToServiceEntity;
 import org.example.infrastructure.database.entity.ServiceEntity;
 import org.hibernate.Session;
 

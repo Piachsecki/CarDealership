@@ -2,7 +2,6 @@ package org.example.business.services.app;
 
 import lombok.AllArgsConstructor;
 import org.example.business.dao.CustomerDAO;
-import org.example.infrastructure.database.entity.CarServiceRequestEntity;
 import org.example.infrastructure.database.entity.CustomerEntity;
 
 import java.util.Optional;
